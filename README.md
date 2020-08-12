@@ -68,7 +68,7 @@ Application testing is executed in GitHub Actions in [actions/setup-node](https:
 
 
 ## API
-This miecroservice has three endpoint which are listed below.
+This microservice has three endpoint which are listed below.
 
 ### 1. POST /login
 Existing token validation.
