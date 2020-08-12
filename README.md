@@ -91,7 +91,6 @@ Save user to database, enabling extracting data from GitHub or Google.
 Application and database availability status.
 
 ## Acknowledgements
-Contributors:
 
 * [KacperMalachowski](https://github.com/KacperMalachowski)
 * [kklimczak](https://github.com/kklimczak)
