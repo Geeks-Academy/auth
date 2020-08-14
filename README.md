@@ -16,11 +16,10 @@
 This repository contains authentication microservice which enables to authenticate either GitHub or Google.
 
 ## Features
-TODO: Description of features
 
-* Include a list of
-* all the many beautiful
-* web server features
+* Programmist is able to log in to application using GitHub account
+* Non-programist is able to log in to application using Google
+* The information is stored in user database
 
 
 ## Requirements
@@ -71,14 +70,14 @@ Application testing is executed in GitHub Actions in [actions/setup-node](https:
 This microservice has three endpoint which are listed below.
 
 ### 1. POST /login
-Existing token validation.
+Check if user exists in out database by token validation.
 
 
 
 
 
 ### 2. POST /register
-Save user to database, enabling extracting data from GitHub or Google.
+Wait and receive data from GitHub. Save user to database, enabling extracting data from GitHub or Google.
 
 |        Input        |
 |   :-------------    |
