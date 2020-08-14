@@ -1,9 +1,10 @@
 const router = require('express').Router();
+const HealthCheckController = require('../controllers/HealthCheckController');
 
-router.get('/ready', (req, res) => {
+router.get('/', (req, res) => {
   res.json({
-    status: "Ready"
-  })
+    status: HealthCheckController.getServiceStatus()
+  });
 });
 
 module.exports = router;
