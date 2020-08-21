@@ -7,7 +7,7 @@ const serviceStatus = {
 
 const HealthCheckController = {
 
-  getServiceStatus = () => {
+  getServiceStatus: () => {
     switch (mongoose.connection.readyState) {
       case 0:
         serviceStatus.database = "Connected successfully!"
