@@ -2,6 +2,9 @@
   "env": {
     "node": true
   },
+  "parserOptions": {
+    "ecmaVersion": 2019
+  },
   "extends": ["prettier"],
   "plugins": ["prettier"]
 }
