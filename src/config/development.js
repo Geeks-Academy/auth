@@ -12,6 +12,6 @@ module.exports = {
   githubOAuth: {
     clientID: process.env.GITHUB_CLIENTID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURI: "/register"
+    callbackURL: "https://127.0.0.1/login/callback"
   }
 }
