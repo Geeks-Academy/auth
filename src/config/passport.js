@@ -5,17 +5,8 @@ const config = require('./index');
 
 passport.use(new GithubStrategy(config.githubOAuth, 
   (accessToken, refreshToken, profile, cb) => {
-    User.findById(profile.id, (err, user) => {
-      if(!user) {
-        let user = new User({
-          id: profile.id,
-          username: profile.displayName,
-          token: accessToken
-        });
-
-        user.save();
-      } else {
-        cb(err, user);
-      }
-    })
+    User.findOneOrCreate(accessToken, profile, (err, user) => {
+      if(err) return cb(err);
+      cb(user);
+    });
 }))
