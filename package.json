@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node src/index.js",
     "test": "echo \"WARNING: no test specified; Change 'exit 0' to 'exit 1' at the beggining of configuring this!\" && exit 0"
   },
   "keywords": [],
