@@ -13,6 +13,6 @@ app.use(bodyParser.json());
 
 routes(app);
 
-app.listen(config.port, () => {
+app.listen(config.serverOptions.port, () => {
   console.log(`Server is running at: ${config.port}`);
 })

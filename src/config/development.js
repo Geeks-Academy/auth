@@ -6,10 +6,12 @@ module.exports = {
       useUnifiedTopology: true
     }
   },
-  port: 3000,
+  serverOptions: {
+    port: 3000,
+  },
   githubOAuth: {
     clientID: process.env.GITHUB_CLIENTID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: "/register"
+    callbackURI: "/register"
   }
 }
