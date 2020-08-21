@@ -8,7 +8,7 @@ passport.use(new GithubStrategy(config.githubOAuth,
     User.findById(profile.id, (err, user) => {
       if(!user) {
         let user = new User({
-          _id: profile.id,
+          id: profile.id,
           username: profile.displayName,
           token: accessToken
         });
