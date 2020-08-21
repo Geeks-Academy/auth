@@ -7,7 +7,7 @@ module.exports = {
     }
   },
   serverOptions: {
-    port: 3000,
+    port: process.env.PORT | 3000,
   },
   githubOAuth: {
     clientID: process.env.GITHUB_CLIENTID,
