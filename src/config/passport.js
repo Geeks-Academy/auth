@@ -5,10 +5,14 @@ const config = require('./index');
 
 passport.use(new GithubStrategy(config.githubOAuth, 
   (accessToken, refreshToken, profile, cb) => {
-    User.findOneOrCreate(accessToken, profile, (err, user) => {
-      if(err) return cb(err);
-      cb(null, user);
-    });
+    User
+      .findOneOrCreate(accessToken, profile)
+      .then((user) => {
+        if(user) 
+          cb(null, user);
+        else
+          cb();
+      })
 }))
 
 passport.serializeUser((user, done) => done(null, user.id));

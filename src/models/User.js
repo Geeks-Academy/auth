@@ -1,28 +1,26 @@
 const { Schema, model } = require('mongoose');
 
 const UserSchema = new Schema({
-  id: {
-    type: String,
-    unique: true
-  },
+  githubId: String,
   username: String,
   token: String
 });
 
-UserSchema.statics.findOneOrCreate = function (accessToken, profile, cb)  {
-  this.findOne({ id: profile.id }, (err, result) => {
-    if(!result) {
-      const user = new this({
-        id: profile.id,
-        username: profile.displayName,
-        token: accessToken
-      });
+UserSchema.statics.findOneOrCreate = async function (accessToken, profile)  {
+  let result = await this.findOne({ githubId: profile.id });
+  
+  if(!result) {
+    const user = new this({
+      githubId: profile.id,
+      username: profile.displayName,
+      token: accessToken
+    });
 
-      user.save();
-    } else {
-      cb(null, result);
-    }
-  })
+    user.save();
+    result = user;
+  }
+
+  return result;
 }
 
 module.exports = model('User', UserSchema);
