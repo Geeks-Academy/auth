@@ -7,11 +7,11 @@ module.exports = {
     }
   },
   serverOptions: {
-    port: process.env.PORT | 3000,
+    port: process.env.PORT || 3000,
   },
   githubOAuth: {
     clientID: process.env.GITHUB_CLIENTID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: "https://127.0.0.1/login/callback"
+    callbackURL: process.env.GITHUB_CALLBACK_URL
   }
 }

@@ -6,8 +6,6 @@ const routes = require('./routes');
 const mongo = require('./mongodb');
 require('./config/passport');
 
-console.log(config.serverOptions.port)
-
 mongo.connect(config.mongo.connectionString, config.mongo.options);
 
 const app = express();
