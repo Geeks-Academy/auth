@@ -1,29 +1,62 @@
 const mongoose = require('mongoose');
 
-const serviceStatus = {
-  database: {},
-  service: "Ready"
+function isConnected() {
+  return (mongoose.connection.readyState == 1)
+}
+
+function getMongoStatusMessage() {
+  switch (mongoose.connection.readyState) {
+    case 0:
+      return "An error occured while connecting to MongoDB database";
+    
+    case 1:
+      return "Successfully connected to MongoDB database";
+
+    case 2:
+      return "Connecting to MongoDB database";
+
+    case 3:
+      return "Disconnecting from MongoDB database";
+    
+    default:
+      return "Unexpected MongoDB connection status";
+  }
+}
+
+function isReady() {
+  return isConnected();
+}
+
+function getServiceNumericStatus() {
+  if(!isConnected())
+    return 0;
+  else
+    return 1;
+}
+
+function getServiceStatusMessage() {
+  switch(getServiceNumericStatus()) {
+    case 0:
+      return "Not ready"
+
+    case 1:
+      return "Ready"
+  }
 }
 
 const HealthCheckController = {
-
   getServiceStatus: () => {
-    switch (mongoose.connection.readyState) {
-      case 0:
-        serviceStatus.database = "Connected successfully!"
-        break;
-
-      case 1:
-        serviceStatus.database = "Database connection failed!"
-        break;
-      
-      case 2:
-        serviceStatus.database = "Trying to connect to database!"
-        break;
-    
-      default:
-        serviceStatus.database = "Error during DB connection state check!"
-        break;
+    return {
+      database: {
+        isConnected: isConnected(),
+        status: mongoose.connection.readyState,
+        message: getMongoStatusMessage()
+      },
+      service: {
+        isReady: isReady(),
+        status: getServiceNumericStatus(),
+        message: getServiceStatusMessage()
+      }
     }
   }
 }
