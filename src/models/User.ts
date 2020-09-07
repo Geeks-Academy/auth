@@ -1,4 +1,4 @@
-class User {
+export class User {
   githubId: string;
   username: string;
   token: string;
@@ -15,5 +15,3 @@ class User {
     this.created = created;
   }
 }
-
-export = { User };

@@ -1,20 +1,16 @@
-require("dotenv").config({ path: ".env" });
-import { MongoClient } from "mongodb";
+import { MongoClient, Logger } from "mongodb";
 
-//dbURI empty variable
-const { deploymentConnection } = process.env;
-const lockalConnection: string = "mongodb://localhost:27017/test";
-const dbConnection: string = deploymentConnection || lockalConnection;
+const lockalConnection: string = "mongodb://127.0.0.1:27017";
 
 const dbOptions = {
   useUnifiedTopology: true,
 };
 
 //Create one  document to be inserted
-const createOneDoc = async (doc: object) => {
+export const createOneDoc = async (doc: object) => {
   // create a document to be inserted
   //  const doc = { name: "Red", town: "kanto" };
-  const client = new MongoClient(dbConnection, dbOptions);
+  const client = new MongoClient(lockalConnection, dbOptions);
   try {
     await client.connect();
     const database = client.db("test");
@@ -28,7 +24,7 @@ const createOneDoc = async (doc: object) => {
 };
 
 //Create many  documents
-const insertManyDoc = async (doc: []) => {
+export const insertManyDoc = async (doc: []) => {
   // create an array of documents to insert
   // const docs = [
   //     { name: "Red", town: "Kanto" },
@@ -37,7 +33,7 @@ const insertManyDoc = async (doc: []) => {
   //   ];
 
   //  const options = { ordered: true };
-  const client = new MongoClient(dbConnection, dbOptions);
+  const client = new MongoClient(lockalConnection, dbOptions);
   try {
     await client.connect();
     const database = client.db("test");
@@ -51,7 +47,7 @@ const insertManyDoc = async (doc: []) => {
 };
 
 //Find one documents
-const findOneDoc = async (query: object, options: object) => {
+export const findOneDoc = async (query: object) => {
   //=====Query
   //const query = { title: "The Room" };
   //=====Options
@@ -61,21 +57,19 @@ const findOneDoc = async (query: object, options: object) => {
   //     // Include only the `title` and `imdb` fields in the returned document
   //     projection: { _id: 0, title: 1, imdb: 1 },
   //   };
-  const client = new MongoClient(dbConnection, dbOptions);
+  const client = new MongoClient(lockalConnection, dbOptions);
   try {
     await client.connect();
     const database = client.db("test");
     const collection = database.collection("users");
-    return collection.findOne(query, options);
+    return collection.findOne(query);
   } catch (error) {
     console.log(error);
-  } finally {
-    await client.close();
   }
 };
 
 //Find all documents
-const findAllUsers = async (query: object, options: object) => {
+export const findAllUsers = async (query: object, options: object) => {
   //Query
   //const query = { runtime: { $lt: 15 } };
   //const options = {
@@ -84,7 +78,7 @@ const findAllUsers = async (query: object, options: object) => {
   // Include only the `title` and `imdb` fields in each returned document
   //projection: { _id: 0, title: 1, imdb: 1 },
   //};
-  const client = new MongoClient(dbConnection, dbOptions);
+  const client = new MongoClient(lockalConnection, dbOptions);
   try {
     await client.connect();
     const database = client.db("test");
@@ -98,7 +92,7 @@ const findAllUsers = async (query: object, options: object) => {
 };
 
 //Uodate one documents and update
-const updateOneDoc = async (
+export const updateOneDoc = async (
   filter: object,
   options: object,
   updateDoc: object
@@ -114,7 +108,7 @@ const updateOneDoc = async (
   //         "Blacksmith Scene is a silent film directed by William K.L. Dickson",
   //     },
   //   };
-  const client = new MongoClient(dbConnection, dbOptions);
+  const client = new MongoClient(lockalConnection, dbOptions);
   try {
     await client.connect();
     const database = client.db("test");
@@ -128,7 +122,7 @@ const updateOneDoc = async (
 };
 
 //Udate many documents
-const updateManyDoc = async (filter: object, updateDoc: object) => {
+export const updateManyDoc = async (filter: object, updateDoc: object) => {
   //=====create a filter
   //const filter = { rated: "G" };
   //=====increment every document matching the filter with 2 more comments
@@ -137,7 +131,7 @@ const updateManyDoc = async (filter: object, updateDoc: object) => {
   //       num_mflix_comments: 2,
   //     },
   //   };
-  const client = new MongoClient(dbConnection, dbOptions);
+  const client = new MongoClient(lockalConnection, dbOptions);
   try {
     await client.connect();
     const database = client.db("test");
@@ -151,7 +145,7 @@ const updateManyDoc = async (filter: object, updateDoc: object) => {
 };
 
 //Replace one document
-const replaceOneDoc = async (
+export const replaceOneDoc = async (
   query: object,
   replacement: object,
   options: object
@@ -169,7 +163,7 @@ const replaceOneDoc = async (
   //     // create a document if no documents match the query
   //     upsert: true,
   //   };
-  const client = new MongoClient(dbConnection, dbOptions);
+  const client = new MongoClient(lockalConnection, dbOptions);
   try {
     await client.connect();
     const database = client.db("test");
@@ -183,8 +177,8 @@ const replaceOneDoc = async (
 };
 
 //Delet one document
-const deleteOneDoc = async (query: object) => {
-  const client = new MongoClient(dbConnection, dbOptions);
+export const deleteOneDoc = async (query: object) => {
+  const client = new MongoClient(lockalConnection, dbOptions);
   try {
     await client.connect();
     const database = client.db("test");
@@ -198,8 +192,8 @@ const deleteOneDoc = async (query: object) => {
 };
 
 //Delet many documents
-const deleteManyDoc = async (query: object) => {
-  const client = new MongoClient(dbConnection, dbOptions);
+export const deleteManyDoc = async (query: object) => {
+  const client = new MongoClient(lockalConnection, dbOptions);
   try {
     await client.connect();
     const database = client.db("test");
@@ -210,16 +204,4 @@ const deleteManyDoc = async (query: object) => {
   } finally {
     await client.close();
   }
-};
-
-export default {
-  createOneDoc,
-  insertManyDoc,
-  findOneDoc,
-  findAllUsers,
-  updateOneDoc,
-  updateManyDoc,
-  replaceOneDoc,
-  deleteOneDoc,
-  deleteManyDoc,
 };
