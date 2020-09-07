@@ -1,0 +1,12 @@
+{
+    "family": "auth",
+    "networkMode": "awsvpc",
+    "containerDefinitions": [
+        {
+            "name": "auth",
+            "image": "",
+            "cpu": 10,
+            "memory": 128
+        }
+    ]
+}
