@@ -1,6 +1,5 @@
 {
     "family": "auth",
-    "networkMode": "awsvpc",
     "containerDefinitions": [
         {
             "name": "auth",
