@@ -6,22 +6,22 @@ describe("User model", () => {
     await mongoose.connect("mongodb://localhost:27017", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useCreateIndex: true,
     });
   });
 
   afterAll(async () => {
-    mongoose.connection.close();
+    await User.findOneAndDelete({ token: "Test token" });
+    await mongoose.connection.close();
   });
 
-  it("Should throw validation errors", () => {
+  it("Should throw validation errors", async () => {
     const user = new User();
 
     expect(user.validate).toThrow();
   });
 
   it("Should save a user", async () => {
-    expect.assertions(3);
-
     const user: IUser = new User({
       githubId: "Test github Id",
       username: "Test username",
@@ -29,7 +29,7 @@ describe("User model", () => {
     });
     const spy = jest.spyOn(user, "save");
 
-    user.save();
+    await user.save();
 
     expect(spy).toHaveBeenCalled();
 
