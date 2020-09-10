@@ -1,10 +1,11 @@
-import mongoose, { Schema, Document, Types } from "mongoose";
+import { Schema, Document, Types, model, Model } from "mongoose";
 
-export interface IUser extends Document {
+interface IUser extends Document {
   _id: Types.ObjectId;
   githubId: string;
   username: string;
   token: string;
+  Schema:
 }
 
 const UserSchema: Schema = new Schema({
@@ -13,4 +14,34 @@ const UserSchema: Schema = new Schema({
   token: { type: String, required: true },
 });
 
-export default mongoose.model<IUser>("User", UserSchema);
+UserSchema.statics.findOneOrCreate = async function (
+  accessToken: string,
+  profile: { id: string; displayName: string }
+) {
+  let result = await this.findOne({ githubId: profile }).exec();
+
+  const { id, displayName } = profile;
+
+  if (!result) {
+    const user = new this({
+      githubId: id,
+      username: displayName,
+      token: accessToken,
+    });
+
+    user.save();
+    result = user;
+  }
+
+  return result;
+};
+
+// For model
+export interface IUserModel extends Model<IUser> {
+  token: string;
+  username: string;
+  githubId: string;
+  findOneOrCreate(accessToken: string, profile: object): Promise<IUser>;
+}
+
+export default model<IUser>("User", UserSchema);
