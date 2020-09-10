@@ -15,10 +15,11 @@ describe("User model", () => {
     await mongoose.connection.close();
   });
 
-  it("Should throw validation errors", async () => {
-    const user = new User();
-
-    expect(user.validate).toThrow();
+  it("If the githubId is not entered, I get an error", async () => {
+    try {
+    } catch (error) {
+      expect(error).toThrow(`Path githubId is required.`);
+    }
   });
 
   it("Should save a user", async () => {
@@ -28,17 +29,19 @@ describe("User model", () => {
       token: "Test token",
     });
     const spy = jest.spyOn(user, "save");
+    const isgithubId = user.githubId;
+    const isUsername = user.username;
+    const istoken = user.token;
 
     await user.save();
 
     expect(spy).toHaveBeenCalled();
+    expect(isgithubId).toBe("Test github Id");
+    expect(isUsername).toBe("Test username");
+    expect(istoken).toBe("Test token");
 
-    expect(user).toMatchObject({
-      githubId: expect.any(String),
-      username: expect.any(String),
-      token: expect.any(String),
-    });
-
-    expect(user.token).toBe("Test token");
+    expect(user).toHaveProperty("githubId");
+    expect(user).toHaveProperty("username");
+    expect(user).toHaveProperty("token");
   });
 });
