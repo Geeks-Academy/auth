@@ -1,14 +1,18 @@
 import { Schema, Document, Types, model, Model } from "mongoose";
 
-interface IUser extends Document {
-  _id: Types.ObjectId;
+interface IActionPattern {
+  accessToken: string;
+  profile: { id: string; displayName: string };
+}
+
+interface IAction extends Document, IActionPattern {
   githubId: string;
   username: string;
   token: string;
-  findOneOrCreate(
-    token: string,
-    githubId: { id: string; displayName: string }
-  ): string;
+}
+
+interface IActionModel extends Model<IAction> {
+  findOneOrCreate(action: IActionPattern): Promise<IAction>;
 }
 
 const UserSchema: Schema = new Schema({
@@ -17,26 +21,27 @@ const UserSchema: Schema = new Schema({
   token: { type: String, required: true },
 });
 
-UserSchema.statics.findOneOrCreate = async function (
-  accessToken: string,
-  profile: { id: string; displayName: string }
-) {
-  let result = await this.findOne({ githubId: profile }).exec();
+UserSchema.statics.addAction = async function (
+  action: IActionPattern
+): Promise<IAction> {
+  let result = await this.findOne({
+    githubId: action.profile.displayName,
+  }).exec();
 
-  const { id, displayName } = profile;
+  const { accessToken } = action;
+  const { displayName, id } = action.profile;
 
   if (!result) {
-    const user = new this({
+    const entry: IAction = new this({
       githubId: id,
       username: displayName,
       token: accessToken,
     });
-
-    user.save();
-    result = user;
+    await entry.save();
+    result = entry;
   }
-
   return result;
 };
 
-export default model<IUser>("User", UserSchema);
+export const User = model<IAction, IActionModel>("User", UserSchema);
+export { IActionPattern, IAction, UserSchema };

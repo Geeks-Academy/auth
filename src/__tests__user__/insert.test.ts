@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import User from "../models/User";
+import { User, IAction } from "../models/User";
 
 describe("User model", () => {
   beforeAll(async () => {
@@ -11,7 +11,7 @@ describe("User model", () => {
   });
 
   afterAll(async () => {
-    await User.findOneAndDelete({ token: "Test token" });
+    await User.findOneAndDelete({ token: "Test Access Token" });
     await mongoose.connection.close();
   });
 
@@ -23,17 +23,19 @@ describe("User model", () => {
   });
 
   it("Should save a user", async () => {
-    const user = new User({
+    const user: IAction = new User({
       githubId: "Test github Id",
-      username: "Test username",
-      token: "Test token",
+      username: "Test github displayName",
+      token: "Test Access Token",
     });
+
+    await user.save();
 
     const { githubId, username, token } = user;
 
     expect(githubId).toBe("Test github Id");
-    expect(username).toBe("Test username");
-    expect(token).toBe("Test token");
+    expect(username).toBe("Test github displayName");
+    expect(token).toBe("Test Access Token");
 
     expect(user).toHaveProperty("githubId");
     expect(user).toHaveProperty("username");
