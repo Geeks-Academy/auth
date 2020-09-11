@@ -5,7 +5,10 @@ interface IUser extends Document {
   githubId: string;
   username: string;
   token: string;
-  Schema:
+  findOneOrCreate(
+    token: string,
+    githubId: { id: string; displayName: string }
+  ): string;
 }
 
 const UserSchema: Schema = new Schema({
@@ -35,13 +38,5 @@ UserSchema.statics.findOneOrCreate = async function (
 
   return result;
 };
-
-// For model
-export interface IUserModel extends Model<IUser> {
-  token: string;
-  username: string;
-  githubId: string;
-  findOneOrCreate(accessToken: string, profile: object): Promise<IUser>;
-}
 
 export default model<IUser>("User", UserSchema);

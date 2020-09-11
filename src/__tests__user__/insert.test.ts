@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import User, { IUserModel } from "../models/User";
+import User from "../models/User";
 
 describe("User model", () => {
   beforeAll(async () => {
@@ -23,19 +23,17 @@ describe("User model", () => {
   });
 
   it("Should save a user", async () => {
-    const user: IUserModel = new User({
+    const user = new User({
       githubId: "Test github Id",
       username: "Test username",
       token: "Test token",
     });
 
-    const isgithubId = user.githubId;
-    const isUsername = user.username;
-    const istoken = user.token;
+    const { githubId, username, token } = user;
 
-    expect(isgithubId).toBe("Test github Id");
-    expect(isUsername).toBe("Test username");
-    expect(istoken).toBe("Test token");
+    expect(githubId).toBe("Test github Id");
+    expect(username).toBe("Test username");
+    expect(token).toBe("Test token");
 
     expect(user).toHaveProperty("githubId");
     expect(user).toHaveProperty("username");
