@@ -1,24 +1,24 @@
-const PREFIX = "AA8K";
+const PREFIX = 'AA8K';
 
 const customParser = {
   parserOpts: {
     headerPattern: /^(\w+)-(\d+) - (.*)$/,
-    headerCorrespondence: ["type", "id", "subject"],
+    headerCorrespondence: ['type', 'id', 'subject'],
   },
 };
 
 module.exports = {
   parserPreset: customParser,
   rules: {
-    "type-enum": [2, "always", [`${PREFIX}`]],
-    "commit-message-rule": [2, "always"],
-    "subject-empty": [2, "never"],
-    "subject-case": [2, "always", "sentence-case"],
+    'type-enum': [2, 'always', [`${PREFIX}`]],
+    'commit-message-rule': [2, 'always'],
+    'subject-empty': [2, 'never'],
+    'subject-case': [2, 'always', 'sentence-case'],
   },
   plugins: [
     {
       rules: {
-        "commit-message-rule": ({ type, id }) => {
+        'commit-message-rule': ({ type, id }) => {
           const ID = parseInt(id, 10);
 
           return [
