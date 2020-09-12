@@ -1,47 +1,30 @@
-import { Schema, Document, Types, model, Model } from "mongoose";
+import { Schema, model } from "mongoose";
+import { IUser, IProfile, IUserDoc, IUserModel } from './User.d'
 
-interface IActionPattern {
-  accessToken: string;
-  profile: { id: string; displayName: string };
-}
-
-interface IAction extends Document, IActionPattern {
-  githubId: string;
-  username: string;
-  token: string;
-}
-
-interface IActionModel extends Model<IAction> {
-  findOneOrCreate(action: IActionPattern): Promise<IAction>;
-}
-
-const UserSchema: Schema = new Schema({
-  githubId: { type: String, required: true, unique: true },
-  username: { type: String, required: true },
-  token: { type: String, required: true },
+const UserSchema = new Schema({
+  id: { type: String, required: true, unique: true },
+  userName: { type: String, required: true },
+  token: { type: String, required: true }
 });
 
-UserSchema.statics.addAction = async function (
-  action: IActionPattern
-): Promise<IAction> {
-  let result = await this.findOne({
-    githubId: action.profile.displayName,
-  }).exec();
+UserSchema.statics.findOneOrCreate = async function (
+  accessToken: string, { id, displayName }: IProfile
+): Promise<IUserDoc> {
+  const collection: IUserModel = this
 
-  const { accessToken } = action;
-  const { displayName, id } = action.profile;
+  const foundUser: IUserDoc | null = await collection.findOne({ id }).exec()
 
-  if (!result) {
-    const entry: IAction = new this({
-      githubId: id,
-      username: displayName,
-      token: accessToken,
-    });
-    await entry.save();
-    result = entry;
+  if (!foundUser) {
+    const newUser = await new collection({
+      id,
+      userName: displayName,
+      token: accessToken
+    }).save()
+    return newUser
   }
-  return result;
+
+  return foundUser
 };
 
-export const User = model<IAction, IActionModel>("User", UserSchema);
-export { IActionPattern, IAction, UserSchema };
+const User = model<IUserDoc, IUserModel>("User", UserSchema)
+export { IUser, IProfile, UserSchema, User }
