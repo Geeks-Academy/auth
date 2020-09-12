@@ -70,7 +70,7 @@ jobs:
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
-        task-definition: ./auth/auth_task_definition.json
+        task-definition: ./auth_task_definition.json
         container-name: auth
         image: ${{ steps.build-image.outputs.image }}
 
