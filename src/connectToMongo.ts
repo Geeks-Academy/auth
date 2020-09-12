@@ -10,17 +10,16 @@ const defaultOptions: IMongoOptions = {
   useUnifiedTopology: true
 }
 
-function connect(connectionString: string, options: IMongoOptions = defaultOptions): Promise<boolean> {
-  return new Promise((resolve, reject) => {
-    mongoose.connect(connectionString, options).then(() => {
-      console.log(`Mongo on ${connectionString} connected`)
-      resolve(true)
-    }, (err) => {
-      console.error('Error connecting to MongoDB', err)
-      reject(false)
-    })
-
-  })
+async function connect(connectionString: string, options: IMongoOptions = defaultOptions): Promise<boolean> {
+  try{
+    await mongoose.connect(connectionString, options)
+    console.log(`Mongo on ${connectionString} connected`)
+    return true
+  }
+  catch(err){
+    console.error('Error connecting to MongoDB', err)
+    return false
+  }
 }
 
 function disconnect():Promise<void> {
