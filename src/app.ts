@@ -1,9 +1,9 @@
 import { Express, default as express } from 'express';
 import cors from 'cors';
-import routes from './routes';
+import routes from '@/routes';
 import passport from 'passport';
 
-require('./config/passport.js');
+require('@/config/passport.js');
 
 const initialize = (): Express => {
   const app = express();
