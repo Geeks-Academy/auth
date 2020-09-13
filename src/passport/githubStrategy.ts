@@ -1,5 +1,6 @@
 import { Strategy } from 'passport-github';
-import User from '../models/user';
+import { IProfile } from '../models/User.d';
+import { User } from '../models/User';
 
 const {
   GITHUB_CLIENTID,
@@ -16,7 +17,12 @@ const GithubStrategy = (): Strategy =>
       clientSecret: GITHUB_CLIENT_SECRET,
       callbackURL: GITHUB_CALLBACK_URL,
     },
-    async (accessToken: string, refreshToken: string, profile: any, done) => {
+    async (
+      accessToken: string,
+      refreshToken: string,
+      profile: IProfile,
+      done,
+    ) => {
       try {
         const user = await User.findOneOrCreate(accessToken, profile);
         done(null, user);

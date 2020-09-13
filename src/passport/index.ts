@@ -1,10 +1,11 @@
 import passport from 'passport';
 import GithubStrategy from './githubStrategy';
-import User from '../models/user';
+import { IUser } from '../models/User.d';
+import { User } from '../models/User';
 
 passport.use(GithubStrategy());
 
-passport.serializeUser((user, done) => {
+passport.serializeUser((user: IUser, done) => {
   done(null, user.id);
 });
 
