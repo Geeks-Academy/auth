@@ -33,7 +33,9 @@ export default class HealthCheckController {
 
   private serviceStatusMessage() {
     switch (this.connection.readyState) {
-      case 0 || 2 || 3:
+      case 0:
+      case 2:
+      case 3:
         return 'Not ready yet!';
 
       case 1:
