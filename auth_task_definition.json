@@ -1,0 +1,18 @@
+{
+    "family": "auth",
+    "containerDefinitions": [
+        {
+            "name": "auth",
+            "image": "",
+            "cpu": 10,
+            "memory": 128,
+            "portMappings": [
+                {
+                    "containerPort": 3000,
+                    "hostPort": 3030,
+                    "protocol": "tcp"
+                }
+            ]
+        }
+    ]
+}

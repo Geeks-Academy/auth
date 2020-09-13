@@ -26,7 +26,7 @@ export default class HealthCheckController {
       service: {
         isReady: this.isConnected(),
         status: this.isConnected() ? 1 : 0,
-        message: 'Test',
+        message: this.serviceStatusMessage(),
       },
     };
   }
