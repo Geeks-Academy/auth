@@ -2,7 +2,7 @@ import { Express, default as express } from 'express';
 import cors from 'cors';
 import routes from './routes';
 
-export default function initialize(): Express {
+const initialize = (): Express => {
   const app = express();
 
   app.use(express.urlencoded({ extended: true }));
@@ -12,4 +12,6 @@ export default function initialize(): Express {
   app.use(routes());
 
   return app;
-}
+};
+
+export default initialize;
