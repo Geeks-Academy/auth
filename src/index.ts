@@ -6,5 +6,5 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 initialize(app).listen(port, () => {
-  `Auth service is listening at port ${port}`;
+  console.log(`Auth service is listening at port ${port}`);
 });
