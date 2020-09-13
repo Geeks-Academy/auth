@@ -66,6 +66,6 @@ export default class HealthCheckController {
   }
 
   private isConnected() {
-    return this.connection.readyState == 1;
+    return this.connection.readyState === 1;
   }
 }
