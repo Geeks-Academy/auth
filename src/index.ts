@@ -1,5 +1,8 @@
+import dotenv from 'dotenv';
 import initialize from './app';
 import { connect } from './connectToMongo';
+
+dotenv.config();
 
 const { MONGO_CONNECTION_STRING } = process.env as {
   [key: string]: string;
