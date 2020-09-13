@@ -1,5 +1,12 @@
 import express from 'express';
 import initialize from './app';
+import { connect } from './connectToMongo';
+
+const { MONGO_CONNECTION_STRING } = process.env as {
+  [key: string]: string;
+};
+
+connect(MONGO_CONNECTION_STRING);
 
 const app = express();
 
