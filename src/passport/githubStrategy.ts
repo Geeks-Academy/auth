@@ -1,6 +1,9 @@
 import { Strategy } from 'passport-github';
+import dotenv from 'dotenv';
 import { IProfile } from '../models/User.d';
 import { User } from '../models/User';
+
+dotenv.config();
 
 const {
   GITHUB_CLIENTID,

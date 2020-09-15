@@ -2,13 +2,9 @@ import HealthCheckController from '../controllers/HealthCheckController';
 import mongoose from 'mongoose';
 
 jest.mock('mongoose');
-let connection: mongoose.Connection;
+const connection: mongoose.Connection = new mongoose.Connection(mongoose);
 
 describe('HealthCheckController', () => {
-  beforeEach(() => {
-    connection = new mongoose.Connection(mongoose);
-  });
-
   it.each`
     status | expected | readyString    | dbStateString
     ${0}   | ${false} | ${'not ready'} | ${'diconnected from'}

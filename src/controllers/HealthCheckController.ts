@@ -31,9 +31,11 @@ export default class HealthCheckController {
     };
   }
 
-  private serviceStatusMessage() {
+  private serviceStatusMessage(): string {
     switch (this.connection.readyState) {
-      case 0 || 2 || 3:
+      case 0:
+      case 2:
+      case 3:
         return 'Not ready yet!';
 
       case 1:
@@ -64,6 +66,6 @@ export default class HealthCheckController {
   }
 
   private isConnected() {
-    return this.connection.readyState == 1;
+    return this.connection.readyState === 1;
   }
 }

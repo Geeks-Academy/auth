@@ -1,6 +1,8 @@
-import express from 'express';
+import dotenv from 'dotenv';
 import initialize from './app';
 import { connect } from './connectToMongo';
+
+dotenv.config();
 
 const { MONGO_CONNECTION_STRING } = process.env as {
   [key: string]: string;
@@ -8,10 +10,8 @@ const { MONGO_CONNECTION_STRING } = process.env as {
 
 connect(MONGO_CONNECTION_STRING);
 
-const app = express();
-
 const port = process.env.PORT || 3000;
 
-initialize(app).listen(port, () => {
+initialize().listen(port, () => {
   console.log(`Auth service is listening at port ${port}`);
 });
