@@ -15,10 +15,6 @@ interface IProfile {
 interface IUserDoc extends Document, IUser {}
 
 interface IUserModel extends Model<IUserDoc> {
-  findOrCreate(
-    arg0: { googleId: string },
-    arg1: (err: any, user: any) => any
-  ): void;
   findOneOrCreate(accessToken: string, profile: IProfile): Promise<IUserDoc>;
 }
 

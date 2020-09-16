@@ -1,7 +1,15 @@
 import { Router, Request, Response, NextFunction } from "express";
+import dotenv from "dotenv";
 import passport from "passport";
-import { OAuthStrategy, Profile, VerifyFunction } from "passport-google-oauth";
+import { OAuthStrategy, VerifyFunction } from "passport-google-oauth";
+import { IProfile } from "../models/User.d";
 import { User } from "../models/User";
+
+dotenv.config();
+
+const { consumerKey, consumerSecret, callbackURL } = process.env as {
+  [key: string]: string;
+};
 
 const router = Router();
 
@@ -16,14 +24,14 @@ passport.deserializeUser((user, cb) => {
 passport.use(
   new OAuthStrategy(
     {
-      consumerKey: "GOOGLE_CONSUMER_KEY",
-      consumerSecret: "GOOGLE_CONSUMER_SECRET",
-      callbackURL: "/auth/google/callback",
+      consumerKey: consumerKey,
+      consumerSecret: consumerSecret,
+      callbackURL: callbackURL,
     },
     async (
       accessToken: string,
       refreshToken: string,
-      profile: Profile,
+      profile: IProfile,
       done: VerifyFunction
     ) => {
       try {
@@ -43,7 +51,7 @@ router.get(
 
 router.get(
   "/auth/google/callback",
-  passport.authenticate("google", { failureRedirect: "/login" }),
+  passport.authenticate("google"),
   (req: Request, res: Response) => {
     res.redirect("/");
   }
