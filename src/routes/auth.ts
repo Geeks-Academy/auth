@@ -1,6 +1,7 @@
 import { Router, Request, Response, NextFunction } from "express";
 import passport from "passport";
 import { OAuthStrategy, Profile, VerifyFunction } from "passport-google-oauth";
+import { User } from "../models/User";
 
 const router = Router();
 
@@ -19,13 +20,18 @@ passport.use(
       consumerSecret: "GOOGLE_CONSUMER_SECRET",
       callbackURL: "/auth/google/callback",
     },
-    (
+    async (
       accessToken: string,
       refreshToken: string,
       profile: Profile,
       done: VerifyFunction
     ) => {
-      return done(null, profile);
+      try {
+        const user = await User.findOneOrCreate(accessToken, profile);
+        return done(null, user);
+      } catch (error) {
+        throw error;
+      }
     }
   )
 );
