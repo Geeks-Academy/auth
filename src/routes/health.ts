@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import mongoose from 'mongoose';
-import HealthCheckController from '@/controllers/HealthCheckController';
+import HealthCheckController from '../controllers/HealthCheckController';
 
 const router = Router();
 

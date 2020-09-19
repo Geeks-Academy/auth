@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
-import initialize from '@/app';
-import { connect } from '@/connectToMongo';
+import initialize from './app';
+import { connect } from './connectToMongo';
 
 dotenv.config();
 
