@@ -1,18 +1,17 @@
 import express from 'express';
-import { urlencoded, json } from 'body-parser';
 import { mongoDBConnectionString, mongoOptions, port } from './config';
 import { routes } from './routes';
 import { connect } from './connectToMongo';
 import dotenv from 'dotenv';
 
-const result = dotenv.config();
+dotenv.config();
 
 connect(mongoDBConnectionString, mongoOptions);
 
 const app = express();
 
-app.use(urlencoded({ extended: true }));
-app.use(json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 routes(app);
 
