@@ -13,6 +13,7 @@ const defaultOptions: IMongoOptions = {
 async function connect(connectionString: string, options: IMongoOptions = defaultOptions): Promise<boolean> {
   try{
     await mongoose.connect(connectionString, options)
+    mongoose.set('useFindAndModify', false);
     console.log(`Mongo on ${connectionString} connected`)
     return true
   }
