@@ -61,35 +61,15 @@ Application will run by default on port `1234`
 
 Configure the port by changing `services.api.ports` in __docker-compose.yml__. Port 1234 was used by default so the value is easy to identify and change in the configuration file.
 
-
 ## Testing
 Application testing is executed in GitHub Actions in [actions/setup-node](https://github.com/actions/setup-node). You can find configuration files in ```./.github/workflows/```.
-
 
 ## API
 This microservice has three endpoint which are listed below.
 
-### 1. POST /login
-Check if user exists in out database by token validation.
-
-
-
-
-
-### 2. POST /register
-Wait and receive data from GitHub. Save user to database, enabling extracting data from GitHub or Google.
-
-|        Input        |
-|   :-------------    |
-| id: number          |
-| username: string    |
-| tokenIssuer: string |
-| token: string       |
-
-### 3. GET /health
-Application and database availability status.
+### 1. POST /auth/google
+Check if user exists in out database by using Google Auth. Returns user after check or database save.
 
 ## Acknowledgements
 
-* [KacperMalachowski](https://github.com/KacperMalachowski)
-* [kklimczak](https://github.com/kklimczak)
+* [hendrysiak](https://github.com/hendrysiak)
