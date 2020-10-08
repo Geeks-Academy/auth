@@ -3,7 +3,7 @@ import { mongoDBConnectionString, mongoOptions } from '../config';
 import mongoose from 'mongoose'
 import { defaultOptions, IMongoOptions } from '../models/mongo/mongo.model';
 
-async function connect(connectionString: string, options: IMongoOptions = defaultOptions): Promise<boolean> {
+const connect = async(connectionString: string, options: IMongoOptions = defaultOptions): Promise<boolean> => {
   try{
     await mongoose.connect(connectionString, options)
     mongoose.set('useFindAndModify', false);
@@ -16,7 +16,7 @@ async function connect(connectionString: string, options: IMongoOptions = defaul
   }
 }
 
-function disconnect():Promise<void> {
+const disconnect = ():Promise<void> => {
   return mongoose.disconnect()
 }
 
