@@ -1,14 +1,7 @@
+import { mongoDBConnectionString, mongoOptions } from '../config';
+
 import mongoose from 'mongoose'
-
-interface IMongoOptions {
-  useNewUrlParser?: boolean
-  useUnifiedTopology?: boolean
-}
-
-const defaultOptions: IMongoOptions = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}
+import { defaultOptions, IMongoOptions } from '../models/mongo/mongo.model';
 
 async function connect(connectionString: string, options: IMongoOptions = defaultOptions): Promise<boolean> {
   try{
@@ -27,4 +20,9 @@ function disconnect():Promise<void> {
   return mongoose.disconnect()
 }
 
-export { connect, disconnect, IMongoOptions }
+const connectToMongo = () => {
+  return connect(mongoDBConnectionString, mongoOptions);
+}
+
+export { connect, disconnect, IMongoOptions, connectToMongo  }
+

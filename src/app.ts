@@ -1,14 +1,15 @@
 import express from 'express';
-import { mongoDBConnectionString, mongoOptions, port } from './config';
-import { connect } from './connectToMongo';
+import { port } from './config';
+
 import session from 'express-session';
-import passport from 'passport';
+
 import dotenv from 'dotenv';
 import googleRoute from './routes/google.auth';
+import { connectToMongo } from './services/db.service';
 
 dotenv.config();
 
-connect(mongoDBConnectionString, mongoOptions);
+connectToMongo();
 
 const app = express();
 

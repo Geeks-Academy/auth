@@ -10,7 +10,6 @@ const UserSchema = new Schema({
   },
   lastLoggedIn: {
       type: Date,
-      required: false
   },
 
 });
@@ -24,7 +23,7 @@ export const mapUserToAttachedUser = (user: IUserDocument | null): IUserAttached
   if (user) {
     return {
       id: user.id,
-      userEmail: user.userEmail,
+      email: user.email,
       lastLoggedIn: user.lastLoggedIn
     };
   } else return null;
