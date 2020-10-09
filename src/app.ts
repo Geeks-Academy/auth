@@ -1,5 +1,4 @@
 import express from 'express';
-import { port } from './config';
 
 import session from 'express-session';
 
@@ -23,6 +22,6 @@ app.use(session({
 
 googleRoute(app);
 
-app.listen(port, () => {
-  console.log(`Server is running at: ${port}`);
+app.listen(process.env.API_PORT, () => {
+  console.log(`Server is running at: ${process.env.API_PORT}`);
 })
