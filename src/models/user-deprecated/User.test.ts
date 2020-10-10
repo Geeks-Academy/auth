@@ -1,3 +1,4 @@
+/* 
 import { connect, disconnect } from '../connectToMongo'
 import { User } from './User'
 import { IProfile } from './User.d'
@@ -70,3 +71,4 @@ describe("User model", () => {
 		})
 	})
 })
+*/
