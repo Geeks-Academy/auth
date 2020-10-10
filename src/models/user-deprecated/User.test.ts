@@ -72,3 +72,8 @@ describe("User model", () => {
 	})
 })
 */
+describe("static method .findOneOrCreate works properly when", () => {
+  it("getting user with id existing in db", async () => {
+    expect(true).toBe(true)
+  })
+})
