@@ -8,15 +8,19 @@ import AWS from 'aws-sdk';
 const ssm = new AWS.SSM();
 
 function getParameterFromSystemManager() {
-    var params = {
-        Name: '/programmersonly/auth/GOOGLE_CLIENT_ID',
-        /* required */
-        WithDecryption: /*true ||*/ false
-    };
-    ssm.getParameter(params, function(err, data) {
-        if (err) console.log(err, err.stack); // an error occurred
-        else return data; // successful response
-    });
+  // Fetches a parameter called REPO_NAME from SSM parameter store.
+  // Requires a policy for SSM:GetParameter on the parameter being read.
+  var params = {
+      Name: '/programmersonly/auth/GOOGLE_CLIENT_ID',
+      /* required */
+      WithDecryption: /*true ||*/ false
+  };
+  console.log('in the getParameterFromSystemManager function')
+  var request = ssm.getParameter(params, function(err, data) {
+      if (err) console.log(err, err.stack); // an error occurred
+      else console.log(data.Parameter.Value); // successful response
+      
+  });
 }
 
 const AWSParams = getParameterFromSystemManager()
