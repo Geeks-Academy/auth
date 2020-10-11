@@ -13,8 +13,8 @@ const getParameterFromSystemManager = async () => {
       Name: '/programmersonly/auth/GOOGLE_CLIENT_ID',
       WithDecryption: false
     })
-    console.log(request.Parameter.Value)
-    return request.Parameter.Value
+    console.log(request)
+    return request
   } catch(err) {
     console.log(err, err.stack);
   }
