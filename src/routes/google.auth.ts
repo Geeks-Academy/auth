@@ -3,28 +3,24 @@ import passport, { Profile } from 'passport';
 import GoogleStrategy from 'passport-google-oauth';
 import * as userController from '../controllers/user.controller'
 import { GoogleUser } from '../models/user/user.model';
+
 import AWS from 'aws-sdk';
+const ssm = new AWS.SSM();
 
-const ssm: AWS.SSM = new AWS.SSM();
-
-const getParametersFromAWS = async () => {
-    const request = ssm.getParameters({ Names: [
-      '/programmersonly/auth/GOOGLE_CLIENT_ID', 
-      '/programmersonly/auth/GOOGLE_CLIENT_SECRET',
-      '/programmersonly/auth/GOOGLE_CALLBACKURL'
-    ] })
-    request.on('success', function(response) {
-      return response.data;
-    });
-    request.on('error', function(err) {
-        throw err;
-      });
-    request.send();    
- 
+exports.handler = function(event, context) {
+    getParameterFromSystemManager();
+};
+const getParameterFromSystemManager = async (): any => {
+  try {
+    const request = await ssm.getParameter({
+      Name: '/programmersonly/auth/GOOGLE_CLIENT_ID',
+      WithDecryption: false
+    })
+    return request.Parameter.Value
+  } catch(err) {
+    console.log(err, err.stack);
+  }
 }
-
-const AWSParams = getParametersFromAWS();
-console.log(AWSParams)
 
 const googleRoute = (app: Express): void => {
 
