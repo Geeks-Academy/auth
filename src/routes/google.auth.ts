@@ -7,19 +7,19 @@ import { Express } from 'express';
 import AWS from 'aws-sdk';
 const ssm = new AWS.SSM();
 
-const getParameterFromSystemManager = async () => {
-  try {
-    const request = await ssm.getParameter({
-      Name: '/programmersonly/auth/GOOGLE_CLIENT_ID',
-      WithDecryption: false
-    })
-    return request
-  } catch(err) {
-    console.log(err, err.stack);
-  }
+function getParameterFromSystemManager() {
+    var params = {
+        Name: '/programmersonly/auth/GOOGLE_CLIENT_ID',
+        /* required */
+        WithDecryption: /*true ||*/ false
+    };
+    ssm.getParameter(params, function(err, data) {
+        if (err) console.log(err, err.stack); // an error occurred
+        else return data; // successful response
+    });
 }
 
-const AWSParams = getParameterFromSystemManager().then((res) => console.log(res)).catch((err) => console.log(err))
+const AWSParams = getParameterFromSystemManager()
 console.log(AWSParams)
 
 const googleRoute = (app: Express): void => {
