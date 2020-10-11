@@ -20,7 +20,7 @@ const getParameterFromSystemManager = async () => {
   }
 }
 
-const AWSParams = getParameterFromSystemManager()
+const AWSParams = getParameterFromSystemManager().then(console.log).catch(console.log)
 console.log(AWSParams)
 
 const googleRoute = (app: Express): void => {
