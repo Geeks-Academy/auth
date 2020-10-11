@@ -3,6 +3,25 @@ import passport, { Profile } from 'passport';
 import GoogleStrategy from 'passport-google-oauth';
 import * as userController from '../controllers/user.controller'
 import { GoogleUser } from '../models/user/user.model';
+import AWS from 'aws-sdk';
+
+const ssm: AWS.SSM = new AWS.SSM();
+
+const getParametersFromAWS = async () => {
+  await ssm.getParameters({ Names: [
+    'programmersonly/auth/GOOGLE_CLIENT_ID', 
+    'programmersonly/auth/GOOGLE_CLIENT_SECRET',
+    'programmersonly/auth/GOOGLE_CALLBACKURL'
+  ] })
+  .promise()
+  .catch((err: AWS.AWSError) => {
+      console.error('Failed getting parameter');
+      console.error(err);
+  });
+}
+
+getParametersFromAWS();
+
 
 const googleRoute = (app: Express): void => {
 
@@ -19,6 +38,7 @@ passport.deserializeUser(function(obj, cb) {
   cb(null, obj);
 });
 
+console.log(process.env)
 const GoogleStrategyOAuth2Strategy = GoogleStrategy.OAuth2Strategy;
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID as string;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET as string;
