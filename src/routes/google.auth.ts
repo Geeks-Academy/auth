@@ -8,20 +8,23 @@ import AWS from 'aws-sdk';
 const ssm: AWS.SSM = new AWS.SSM();
 
 const getParametersFromAWS = async () => {
-  await ssm.getParameters({ Names: [
-    '/programmersonly/auth/GOOGLE_CLIENT_ID', 
-    '/programmersonly/auth/GOOGLE_CLIENT_SECRET',
-    '/programmersonly/auth/GOOGLE_CALLBACKURL'
-  ] })
-  .promise()
-  .catch((err: AWS.AWSError) => {
-      console.error('Failed getting parameter');
-      console.error(err);
-  });
+    const request = ssm.getParameters({ Names: [
+      '/programmersonly/auth/GOOGLE_CLIENT_ID', 
+      '/programmersonly/auth/GOOGLE_CLIENT_SECRET',
+      '/programmersonly/auth/GOOGLE_CALLBACKURL'
+    ] })
+    request.on('success', function(response) {
+      return response.data;
+    });
+    request.on('error', function(err) {
+        throw err;
+      });
+    request.send();    
+ 
 }
 
-getParametersFromAWS();
-
+const AWSParams = getParametersFromAWS();
+console.log(AWSParams)
 
 const googleRoute = (app: Express): void => {
 
