@@ -3,7 +3,7 @@
 import mongoose from 'mongoose'
 import { defaultOptions, IMongoOptions } from '../models/mongo/mongo.model';
 
-export const mongoDBConnectionString = 'mongodb.programmers.only:27017' as string;
+export const mongoDBConnectionString = 'mongodb://mongodb.programmers.only:27017' as string;
 
 const connect = async(connectionString: string, options: IMongoOptions = defaultOptions): Promise<boolean> => {
   try{
