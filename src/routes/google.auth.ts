@@ -5,6 +5,7 @@ import { Express } from 'express';
 // import { GoogleUser } from '../models/user/user.model';
 
 import AWS from 'aws-sdk';
+AWS.config.update({region: 'eu-central-1'});
 const ssm = new AWS.SSM();
 
 function getParameterFromSystemManager() {
