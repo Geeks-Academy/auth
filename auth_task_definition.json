@@ -5,7 +5,7 @@
             "name": "auth",
             "image": "",
             "cpu": 10,
-            "memory": 470,
+            "memory": 1024,
             "portMappings": [
                 {
                     "containerPort": 3000,
