@@ -18,7 +18,7 @@ function getParameterFromSystemManager() {
   console.log('in the getParameterFromSystemManager function')
   var request = ssm.getParameter(params, function(err, data) {
       if (err) console.log(err, err.stack); // an error occurred
-      else console.log(data.Parameter.Value); // successful response
+      else console.log(data?.Parameter?.Value || 'empty'); // successful response
       
   });
 }
