@@ -7,20 +7,21 @@ import { GoogleUser } from '../models/user/user.model';
 import AWS from 'aws-sdk';
 const ssm = new AWS.SSM();
 
-exports.handler = function(event, context) {
-    getParameterFromSystemManager();
-};
-const getParameterFromSystemManager = async (): any => {
+const getParameterFromSystemManager = async () => {
   try {
     const request = await ssm.getParameter({
       Name: '/programmersonly/auth/GOOGLE_CLIENT_ID',
       WithDecryption: false
     })
+    console.log(request.Parameter.Value)
     return request.Parameter.Value
   } catch(err) {
     console.log(err, err.stack);
   }
 }
+
+const AWSParams = getParameterFromSystemManager()
+console.log(AWSParams)
 
 const googleRoute = (app: Express): void => {
 
