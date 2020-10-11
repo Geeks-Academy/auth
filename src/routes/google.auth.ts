@@ -9,9 +9,9 @@ const ssm: AWS.SSM = new AWS.SSM();
 
 const getParametersFromAWS = async () => {
   await ssm.getParameters({ Names: [
-    'programmersonly/auth/GOOGLE_CLIENT_ID', 
-    'programmersonly/auth/GOOGLE_CLIENT_SECRET',
-    'programmersonly/auth/GOOGLE_CALLBACKURL'
+    '/programmersonly/auth/GOOGLE_CLIENT_ID', 
+    '/programmersonly/auth/GOOGLE_CLIENT_SECRET',
+    '/programmersonly/auth/GOOGLE_CALLBACKURL'
   ] })
   .promise()
   .catch((err: AWS.AWSError) => {
