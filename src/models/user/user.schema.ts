@@ -4,7 +4,7 @@ import { IUser, IUserAttached } from './user.model';
 export const UserCollectionName = 'Users';
 
 const UserSchema = new Schema({
-  userEmail: {
+  email: {
     type: String,
     required: true
   },
