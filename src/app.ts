@@ -3,7 +3,10 @@ import express from 'express';
 import session from 'express-session';
 
 import dotenv from 'dotenv';
+
 import googleRoute from './routes/google.auth';
+import githubRoute from './routes/github.auth';
+
 import { connectToMongo } from './services/db.service';
 
 dotenv.config();
@@ -20,7 +23,8 @@ app.use(session({
     secret: 'SECRET' 
 }));
 
-googleRoute(app);
+// googleRoute(app);
+githubRoute(app);
 
 app.listen(process.env.API_PORT, () => {
   console.log(`Server is running at: ${process.env.API_PORT}`);

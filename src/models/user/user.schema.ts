@@ -6,11 +6,13 @@ export const UserCollectionName = 'Users';
 const UserSchema = new Schema({
   email: {
     type: String,
-    required: true
   },
   lastLoggedIn: {
       type: Date,
   },
+  repoUrl: {
+    type: String,
+  }
 
 });
 
@@ -24,7 +26,8 @@ export const mapUserToAttachedUser = (user: IUserDocument | null): IUserAttached
     return {
       id: user.id,
       email: user.email,
-      lastLoggedIn: user.lastLoggedIn
+      lastLoggedIn: user.lastLoggedIn,
+      repoUrl: user?.repoUrl
     };
   } else return null;
 };

@@ -14,6 +14,7 @@
   "dependencies": {
     "@types/express-session": "^1.17.0",
     "@types/passport": "^1.0.4",
+    "@types/passport-github": "^1.1.5",
     "@types/passport-google-oauth": "^1.0.41",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
@@ -22,6 +23,7 @@
     "google-auth-library": "^6.1.0",
     "mongoose": "^5.9.28",
     "passport": "^0.4.1",
+    "passport-github": "^1.1.0",
     "passport-google-oauth": "^2.0.0",
     "ts-node": "^9.0.0",
     "ts-node-dev": "^1.0.0-pre.63"
