@@ -23,7 +23,7 @@ app.use(session({
     secret: 'SECRET' 
 }));
 
-// googleRoute(app);
+googleRoute(app);
 githubRoute(app);
 
 app.listen(process.env.API_PORT, () => {

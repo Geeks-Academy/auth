@@ -9,6 +9,7 @@ const UserSchema = new Schema({
   },
   lastLoggedIn: {
       type: Date,
+      default: Date.now()
   },
   repoUrl: {
     type: String,
