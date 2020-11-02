@@ -1,4 +1,4 @@
-import { IBaseModelAttached } from '../base-model';
+import { IBaseModelAttached } from 'models/base-model';
 
 export interface IUser {
 

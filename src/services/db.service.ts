@@ -1,7 +1,7 @@
 // import { mongoDBConnectionString } from '../config';
 
 import mongoose from 'mongoose'
-import { defaultOptions, IMongoOptions } from '../models/mongo/mongo.model';
+import { defaultOptions, IMongoOptions } from 'models/mongo/mongo.model';
 
 export const mongoDBConnectionString = process.env.MONGODBURL as string;
 

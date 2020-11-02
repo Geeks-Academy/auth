@@ -6,7 +6,8 @@
   "scripts": {
     "start": "ts-node-dev -r dotenv/config ./src/app.ts",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
