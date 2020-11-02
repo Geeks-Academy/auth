@@ -1,6 +1,6 @@
-import { IUser } from "../models/user/user.model";
-import { IUserAttached } from "../models/user/user.model"
-import { mapUserToAttachedUser, UserCollection } from "../models/user/user.schema"
+import { IUser } from "models/user/user.model";
+import { IUserAttached } from "models/user/user.model"
+import { mapUserToAttachedUser, UserCollection } from "models/user/user.schema"
 import { IUserService } from "./user.service.interface";
 
 export const UserService: IUserService = {

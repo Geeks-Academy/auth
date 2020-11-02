@@ -1,8 +1,8 @@
 import { Express } from 'express';
 import passport, { Profile } from 'passport';
 import GithubStrategy from 'passport-github';
-import * as userController from '../controllers/user.controller'
-import { GithubUser } from '../models/user/user.model';
+import * as userController from 'controllers/user.controller'
+import { GithubUser } from 'models/user/user.model';
 
 const githubRoute = (app: Express): void => {
 

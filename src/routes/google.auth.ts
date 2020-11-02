@@ -1,8 +1,8 @@
 import { Express } from 'express';
 import passport, { Profile } from 'passport';
 import GoogleStrategy from 'passport-google-oauth';
-import * as userController from '../controllers/user.controller'
-import { GoogleUser } from '../models/user/user.model';
+import * as userController from 'controllers/user.controller'
+import { GoogleUser } from 'models/user/user.model';
 
 const googleRoute = (app: Express): void => {
 

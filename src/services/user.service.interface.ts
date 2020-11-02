@@ -1,4 +1,4 @@
-import { IUser, IUserAttached } from "../models/user/user.model";
+import { IUser, IUserAttached } from "models/user/user.model";
 
 export interface IUserService {
   getUserData(email: string): Promise<IUserAttached | null> 

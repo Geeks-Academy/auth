@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { GithubUser, GoogleUser, IUserAttached } from '../models/user/user.model';
-import { UserService } from '../services/user.service';
+import { GithubUser, GoogleUser, IUserAttached } from 'models/user/user.model';
+import { UserService } from 'services/user.service';
 
 
 const getUserByEmail = (email: string): Promise<IUserAttached | null> => {
