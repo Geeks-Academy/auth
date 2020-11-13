@@ -6,7 +6,7 @@ import { IUserService } from "./user.service.interface";
 export const UserService: IUserService = {
   getUserData: async(email: string): Promise<IUserAttached | null> => {
     const foundUser = await UserCollection.findOneAndUpdate(
-      { userEmail: email }, 
+      { email }, 
       { lastLoggedIn: new Date() });
 
     return mapUserToAttachedUser(foundUser);
@@ -18,8 +18,9 @@ export const UserService: IUserService = {
     return mapUserToAttachedUser(createdUser);
   },
 
-  deleteUserData: async(email: string) => {
-    await UserCollection.deleteOne({ userEmail: email });
-  },
-  
+  deleteUserData: async(email: string): Promise<IUserAttached | null> => {
+    const deletedUser = await UserCollection.findOneAndDelete({ email })
+
+    return mapUserToAttachedUser(deletedUser);
+  }
 }

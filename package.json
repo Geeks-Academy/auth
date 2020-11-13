@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev -r dotenv/config ./src/app.ts",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "build": "tsc"
+    "start": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only ./src/app.ts",
+    "build": "tsc",
+    "test": "jest --config ./jest/jest.unit.config.json",
+    "test:coverage": "jest --config ./jest/jest.unit.config.json --coverage",
+    "test:integration": "jest --config ./jest/jest.integration.config.json",
+    "test:report": "jest --config ./jest/jest.unit.config.json --ci --reporters=default --reporters=jest-junit"
   },
   "keywords": [],
   "author": "",
@@ -29,7 +31,8 @@
     "passport-github": "^1.1.0",
     "passport-google-oauth": "^2.0.0",
     "ts-node": "^9.0.0",
-    "ts-node-dev": "^1.0.0-pre.63"
+    "ts-node-dev": "^1.0.0-pre.63",
+    "tsconfig-paths": "^3.9.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^9.1.2",
