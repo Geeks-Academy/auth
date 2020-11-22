@@ -18,9 +18,7 @@ export const UserService: IUserService = {
     return mapUserToAttachedUser(createdUser);
   },
 
-  deleteUserData: async(email: string): Promise<IUserAttached | null> => {
-    const deletedUser = await UserCollection.findOneAndDelete({ email })
-
-    return mapUserToAttachedUser(deletedUser);
+  deleteUserData: async(email: string): Promise<void> => {
+    await UserCollection.deleteOne({ email })
   }
 }

@@ -44,9 +44,9 @@ describe('Userservice - integration test', () => {
     await UserCollection.insertMany(users);
   })
 
-  afterEach(() => {
-    UserCollection.deleteMany({});
-    disconnect();
+  afterEach(async() => {
+    await UserCollection.deleteMany({});
+    await disconnect();
   })
 
   it('Call getUserData() with correct value should return specific user', async () => {
@@ -78,9 +78,9 @@ describe('Userservice - integration test', () => {
 
   it('Call deleteUserData() should delete specific user', async () => {
     const email = 'user1@gmail.com';
-    const deletedUser = await UserService.deleteUserData(email);
+    await UserService.deleteUserData(email);
+    const userAfterDelete = await UserService.getUserData(email);
 
-    expect(deletedUser).toBeDefined();
-    expect(deletedUser?.email).toEqual(email);
+    expect(userAfterDelete).toBeNull();
   })
 });
