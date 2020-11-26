@@ -1,5 +1,6 @@
 import express from 'express';
 
+
 import session from 'express-session';
 
 import dotenv from 'dotenv';
@@ -7,20 +8,21 @@ import dotenv from 'dotenv';
 import googleRoute from './routes/google.auth';
 import githubRoute from './routes/github.auth';
 
+import path from 'path';
+
 import { connectToMongo } from './services/db.service';
 
 import rateLimit from 'express-rate-limit';
  
-
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100
 });
  
+dotenv.config({ path: path.join(__dirname,'../.env') });
+const mongoDBConnectionString = process.env.MONGODBURL as string;
 
-dotenv.config();
-
-connectToMongo();
+connectToMongo(mongoDBConnectionString);
 
 const app = express();
 
