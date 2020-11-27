@@ -4,9 +4,23 @@ import { mapUserToAttachedUser, UserCollection } from "models/user/user.schema"
 import { IUserService } from "./user.service.interface";
 
 export const UserService: IUserService = {
-  getUserData: async(email: string): Promise<IUserAttached | null> => {
+  getUserByEmail: async(email: string): Promise<IUserAttached | null> => {
     const foundUser = await UserCollection.findOneAndUpdate(
-      { userEmail: email }, 
+      { email }, 
+      { lastLoggedIn: new Date() });
+
+    return mapUserToAttachedUser(foundUser);
+  },
+  getUserByRepoUrl: async(repoUrl: string): Promise<IUserAttached | null> => {
+    const foundUser = await UserCollection.findOneAndUpdate(
+      { repoUrl }, 
+      { lastLoggedIn: new Date() });
+
+    return mapUserToAttachedUser(foundUser);
+  },
+  getUserById: async(id: string): Promise<IUserAttached | null> => {
+    const foundUser = await UserCollection.findByIdAndUpdate(
+      id, 
       { lastLoggedIn: new Date() });
 
     return mapUserToAttachedUser(foundUser);
