@@ -32,8 +32,7 @@ export const UserService: IUserService = {
     return mapUserToAttachedUser(createdUser);
   },
 
-  deleteUserData: async(email: string) => {
-    await UserCollection.deleteOne({ userEmail: email });
-  },
-  
+  deleteUserData: async(email: string): Promise<void> => {
+    await UserCollection.deleteOne({ email })
+  }
 }

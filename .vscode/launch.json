@@ -1,0 +1,55 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+      {
+          "name": "Debug Node.JS",
+          "type": "node",
+          "protocol": "inspector",
+          "request": "launch",
+          "args": ["./src/app.ts"],
+          "sourceMaps": true,
+          "skipFiles": [
+            "${workspaceRoot}/node_modules/**/*.js",
+          ],
+          "cwd": "${workspaceRoot}",
+          "runtimeExecutable": "node",
+          "runtimeArgs": ["${workspaceRoot}/node_modules/ts-node-dev/bin/ts-node-dev", "-r", "tsconfig-paths/register", "--respawn", "--transpileOnly"],
+          "stopOnEntry": false, 
+          "resolveSourceMapLocations": [
+            "${workspaceFolder}/**",
+            "!**/node_modules/**"
+          ],  
+      }, 
+      {
+        "name": "Debug Jest Unit Tests",
+        "type": "node",
+        "protocol": "inspector",
+        "request": "launch",
+        "args": ["-i"],
+        "cwd": "${workspaceRoot}",
+        "runtimeExecutable": "node",
+        "runtimeArgs": ["${workspaceRoot}/node_modules/jest/bin/jest.js", "--config", "jest/jest.unit-debug.config.json", "--runInBand"],
+        "resolveSourceMapLocations": [
+          "${workspaceFolder}/**",
+          "!**/node_modules/**"
+        ],  
+      }, 
+      {
+        "name": "Debug Jest Integration Tests",
+        "type": "node",
+        "protocol": "inspector",
+        "request": "launch",
+        "args": ["-i"],
+        "cwd": "${workspaceRoot}",
+        "runtimeExecutable": "node",
+        "runtimeArgs": ["${workspaceRoot}/node_modules/jest/bin/jest.js", "--config", "jest/jest.debug-integration.config.json", "--runInBand"],
+        "resolveSourceMapLocations": [
+          "${workspaceFolder}/**",
+          "!**/node_modules/**"
+        ],  
+      }
+  ]
+}

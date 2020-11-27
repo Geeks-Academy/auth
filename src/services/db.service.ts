@@ -3,8 +3,6 @@
 import mongoose from 'mongoose'
 import { defaultOptions, IMongoOptions } from 'models/mongo/mongo.model';
 
-export const mongoDBConnectionString = process.env.MONGODBURL as string;
-
 const connect = async(connectionString: string, options: IMongoOptions = defaultOptions): Promise<boolean> => {
   try{
     await mongoose.connect(connectionString, options)
@@ -21,7 +19,7 @@ const disconnect = ():Promise<void> => {
   return mongoose.disconnect()
 }
 
-const connectToMongo = () => {
+const connectToMongo = (mongoDBConnectionString: string) => {
   return connect(mongoDBConnectionString);
 }
 

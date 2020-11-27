@@ -5,5 +5,5 @@ export interface IUserService {
   getUserByRepoUrl(repoUrl: string): Promise<IUserAttached | null> 
   getUserById(id: string): Promise<IUserAttached | null> 
   saveUserData(user: IUser): Promise<IUserAttached | null> 
-  deleteUserData(email: string): void 
+  deleteUserData(email: string): Promise<void>
 }
