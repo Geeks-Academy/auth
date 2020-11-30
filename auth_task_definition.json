@@ -12,6 +12,24 @@
                     "hostPort": 0,
                     "protocol": "tcp"
                 }
+            ],
+            "secrets": [
+                {
+                    "name": "MONGOURL",
+                    "valueFrom": "/programmersonly/mongodb/MONGO_URL"
+                },
+                {
+                    "name": "GOOGLE_CALLBACKURL",
+                    "valueFrom": "/programmersonly/auth/GOOGLE_CALLBACKURL"
+                },
+                {
+                    "name": "GOOGLE_CLIENT_ID",
+                    "valueFrom": "/programmersonly/auth/GOOGLE_CLIENT_ID"
+                },
+                {
+                    "name": "GOOGLE_CLIENT_SECRET",
+                    "valueFrom": "/programmersonly/auth/GOOGLE_CLIENT_SECRET"
+                }
             ]
         }
     ]
