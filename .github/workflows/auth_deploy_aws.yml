@@ -66,6 +66,13 @@ jobs:
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
+    - name: Update auth_task_definition.json execution role arn
+      uses: jossef/action-set-json-field@v1
+      with:
+        file: ./auth_task_definition.json
+        field: executionRoleArn
+        value: ${{ secrets.EXECUTION_ROLE_ARN }}
+
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
@@ -73,7 +80,6 @@ jobs:
         task-definition: ./auth_task_definition.json
         container-name: auth
         image: ${{ steps.build-image.outputs.image }}
-        executionRoleArn: ${{ secrets.EXECUTION_ROLE_ARN }}
 
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
