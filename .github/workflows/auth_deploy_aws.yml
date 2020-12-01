@@ -73,6 +73,7 @@ jobs:
         task-definition: ./auth_task_definition.json
         container-name: auth
         image: ${{ steps.build-image.outputs.image }}
+        executionRoleArn: ${{ secrets.EXECUTION_ROLE_ARN }}
 
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1

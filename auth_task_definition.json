@@ -1,5 +1,6 @@
 {
     "family": "auth",
+    "executionRoleArn": "",
     "containerDefinitions": [
         {
             "name": "auth",
