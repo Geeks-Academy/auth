@@ -21,7 +21,7 @@
                 },
                 {
                     "name": "API_PORT",
-                    "value": "3001"
+                    "value": "3000"
                 },
                 {
                     "name": "TEST_ENV",
