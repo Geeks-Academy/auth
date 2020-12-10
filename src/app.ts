@@ -2,7 +2,7 @@ import express from 'express';
 
 
 import session from 'express-session';
-
+import cors from 'cors'
 import dotenv from 'dotenv';
 
 import googleRoute from './routes/google.auth';
@@ -27,6 +27,7 @@ connectToMongo(mongoDBConnectionString);
 const app = express();
 
 app.use(limiter);
+app.use(cors())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(session({
