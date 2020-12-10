@@ -46,6 +46,11 @@ app.get('/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/error' }),
   (req, res) => userController.loginUserViaGithub(userProfile, req, res)  );
 
+app.get('/test', (req, res) => {
+  res.json({ test: 'communication works'});
+});
+  
 };
+
 
 export default githubRoute;
