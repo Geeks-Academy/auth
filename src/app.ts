@@ -5,6 +5,7 @@ import session from 'express-session';
 import cors from 'cors'
 import dotenv from 'dotenv';
 
+import userRoute from './routes/user';
 import googleRoute from './routes/google.auth';
 import githubRoute from './routes/github.auth';
 
@@ -36,6 +37,7 @@ app.use(session({
     secret: 'SECRET' 
 }));
 
+userRoute(app);
 googleRoute(app);
 githubRoute(app);
 
